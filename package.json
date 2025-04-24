@@ -12,9 +12,10 @@
     "server": "cd server && npm run dev",
     "server:prod": "cd server && npm start",
     "dev:full": "concurrently \"npm run dev\" \"npm run server\"",
-    "start": "npm run preview",
-    "build:full": "npm run build && cd server && npm install --production",
-    "start:full": "concurrently \"npm run start\" \"npm run server:prod\""
+    "start": "cd server && npm start",
+    "client:preview": "npm run preview",
+    "build:full": "npm install && npm run build && cd server && npm install --production",
+    "start:full": "concurrently \"npm run client:preview\" \"npm run server:prod\""
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",

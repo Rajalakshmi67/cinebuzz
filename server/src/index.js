@@ -26,6 +26,11 @@ app.get("/", (req, res) => {
   res.send("CineBuzz API is running");
 });
 
+// Health check endpoint for Render
+app.get("/api/health", (req, res) => {
+  res.status(200).json({ status: "ok", message: "Server is healthy" });
+});
+
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGODB_URI)
