@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const path = require("path");
+const axios = require("axios");
 
 // Load env vars
 dotenv.config({ path: "./.env" });
@@ -25,6 +26,34 @@ app.use("/api/auth", authRoutes);
 // Health check endpoint for Render
 app.get("/api/health", (req, res) => {
   res.status(200).json({ status: "ok", message: "Server is healthy" });
+});
+
+// Test OMDB API endpoint
+app.get("/api/test-omdb", async (req, res) => {
+  try {
+    const omdbApiKey = process.env.OMDB_API_KEY || '45e96e64';
+    const response = await axios.get(`https://www.omdbapi.com/?apikey=${omdbApiKey}&s=matrix&type=movie&page=1`);
+    
+    if (response.data.Response === 'True') {
+      res.status(200).json({ 
+        status: "success", 
+        message: "OMDB API is working correctly",
+        results: response.data.Search.slice(0, 2) // Return just a couple of movies as a test
+      });
+    } else {
+      res.status(500).json({ 
+        status: "error", 
+        message: "OMDB API returned an error", 
+        error: response.data.Error 
+      });
+    }
+  } catch (error) {
+    res.status(500).json({ 
+      status: "error", 
+      message: "Failed to connect to OMDB API", 
+      error: error.message 
+    });
+  }
 });
 
 // Serve static assets in production
