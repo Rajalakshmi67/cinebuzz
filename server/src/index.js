@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const path = require("path");
 
 // Load env vars
 dotenv.config({ path: "./.env" });
@@ -18,17 +19,27 @@ app.use(express.json());
 // Enable CORS
 app.use(cors());
 
-// Mount routers
+// API Routes
 app.use("/api/auth", authRoutes);
-
-// Home route
-app.get("/", (req, res) => {
-  res.send("CineBuzz API is running");
-});
 
 // Health check endpoint for Render
 app.get("/api/health", (req, res) => {
   res.status(200).json({ status: "ok", message: "Server is healthy" });
+});
+
+// Serve static assets in production
+// Set static folder
+const staticPath = path.resolve(__dirname, "../../dist");
+app.use(express.static(staticPath));
+
+// Any route that is not an API route should serve the index.html
+app.get("*", (req, res) => {
+  // Only serve the frontend for non-API routes
+  if (!req.url.startsWith("/api")) {
+    res.sendFile(path.resolve(staticPath, "index.html"));
+  } else {
+    res.status(404).json({ message: "API endpoint not found" });
+  }
 });
 
 // Connect to MongoDB
@@ -40,6 +51,7 @@ mongoose
     const PORT = process.env.PORT || 5000;
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
+      console.log(`Frontend available at http://localhost:${PORT}`);
     });
   })
   .catch((err) => {

@@ -14,7 +14,7 @@
     "dev:full": "concurrently \"npm run dev\" \"npm run server\"",
     "start": "cd server && npm start",
     "client:preview": "npm run preview",
-    "build:full": "npm install && npm run build && cd server && npm install --production",
+    "build:full": "npm install && npm run build && npx copyfiles -u 1 \"dist/**/*\" server/ && cd server && npm install --production",
     "start:full": "concurrently \"npm run client:preview\" \"npm run server:prod\""
   },
   "dependencies": {
@@ -80,6 +80,7 @@
     "@vitejs/plugin-react-swc": "^3.5.0",
     "autoprefixer": "^10.4.20",
     "concurrently": "^9.1.2",
+    "copyfiles": "^2.4.1",
     "eslint": "^9.9.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
