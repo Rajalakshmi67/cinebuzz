@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Movie } from '@/utils/movieData';
 
 const API_KEY = '2e853e239a10686485ea5d598515cf2d';
-const BASE_URL = 'https://api.themoviedb.org/3';
+const BASE_URL = import.meta.env.VITE_RENDER_API_URL || 'https://cinebuzz-udbo.onrender.com/api/tmdb';
 const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 const BACKDROP_URL = 'https://image.tmdb.org/t/p/original';
 

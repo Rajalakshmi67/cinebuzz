@@ -56,6 +56,31 @@ app.get("/api/test-omdb", async (req, res) => {
   }
 });
 
+// TMDB API proxy endpoint
+app.get("/api/tmdb/*", async (req, res) => {
+  try {
+    const tmdbApiKey = process.env.TMDB_API_KEY || '2e853e239a10686485ea5d598515cf2d';
+    const path = req.path.replace('/api/tmdb', '');
+    const query = req.query;
+    
+    const response = await axios.get(`https://api.themoviedb.org/3${path}`, {
+      params: {
+        api_key: tmdbApiKey,
+        ...query
+      }
+    });
+    
+    res.status(200).json(response.data);
+  } catch (error) {
+    console.error('TMDB API Error:', error);
+    res.status(500).json({ 
+      status: "error", 
+      message: "Failed to connect to TMDB API", 
+      error: error.message 
+    });
+  }
+});
+
 // Serve static assets in production
 // Set static folder
 const staticPath = path.resolve(__dirname, "../../dist");
