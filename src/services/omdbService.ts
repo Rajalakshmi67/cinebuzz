@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Movie, Platform } from '@/utils/movieData';
 
-const API_KEY = '45e96e64';
+const API_KEY = 'f692bea5';
 const API_URL = 'https://www.omdbapi.com/';
 
 // Map platforms based on availability
