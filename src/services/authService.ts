@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_RENDER_API_URL || 'https://cinebuzz-udbo.onrender.com';
+const API_URL = import.meta.env.VITE_RENDER_API_URL || 'https://cinebuzz-udbo.onrender.com/api/auth';
 
 export interface User {
   _id: string;
