@@ -2,6 +2,14 @@ import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_RENDER_API_URL || 'https://cinebuzz-d2yp.onrender.com/api/auth';
 
+export interface User {
+  _id: string;
+  name: string;
+  email: string;
+  profileImage: string;
+  createdAt: string;
+}
+
 export interface UserData {
   name?: string;
   email: string;
@@ -52,7 +60,7 @@ export const logout = (): void => {
 };
 
 // Get current user
-export const getCurrentUser = (): any => {
+export const getCurrentUser = (): User | null => {
   const userString = localStorage.getItem('user');
   if (!userString) return null;
   
