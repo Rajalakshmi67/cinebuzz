@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getToken } from './authService';
 
-const API_URL = process.env.VITE_API_URL || 'http://localhost:5000/api/watchlist';
+const API_URL = process.env.VITE_API_URL || 'https://cinebuzz-d2yp.onrender.com/api';
 const STORAGE_KEY = 'cinebuzz_watchlist';
 
 export interface WatchlistItem {
