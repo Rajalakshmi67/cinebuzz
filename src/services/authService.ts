@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = process.env.VITE_API_URL || 'http://localhost:5000/api/auth';
+const API_URL = import.meta.env.VITE_RENDER_API_URL || 'https://cinebuzz-d2yp.onrender.com/api/auth';
 
 export interface UserData {
   name?: string;
