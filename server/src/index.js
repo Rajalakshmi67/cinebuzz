@@ -6,7 +6,7 @@ const path = require("path");
 const axios = require("axios");
 
 // Load env vars
-dotenv.config({ path: "./.env" });
+dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
 // Route files
 const authRoutes = require("./routes/authRoutes");
@@ -31,7 +31,7 @@ app.get("/api/health", (req, res) => {
 // Test OMDB API endpoint
 app.get("/api/test-omdb", async (req, res) => {
   try {
-    const omdbApiKey = process.env.OMDB_API_KEY || '45e96e64';
+    const omdbApiKey = process.env.OMDB_API_KEY || 'f692bea5';
     const response = await axios.get(`https://www.omdbapi.com/?apikey=${omdbApiKey}&s=matrix&type=movie&page=1`);
     
     if (response.data.Response === 'True') {
@@ -72,6 +72,7 @@ app.get("*", (req, res) => {
 });
 
 // Connect to MongoDB
+console.log("MONGODB_URI:", process.env.MONGODB_URI);
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
