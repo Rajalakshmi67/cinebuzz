@@ -14,11 +14,11 @@
     "dev:full": "concurrently \"npm run dev\" \"npm run server\"",
     "start": "cd server && npm start",
     "client:preview": "npm run preview",
-    "clean": "rimraf dist server/dist",
-    "build:full": "npm run clean && npm install && npm run build && npx copyfiles -u 1 \"dist/**/*\" server/ && cd server && npm install --production",
+    "clean": "npx rimraf dist server/dist",
+    "build:full": "npm install && npx rimraf dist server/dist && npm run build && npx copyfiles -u 1 \"dist/**/*\" server/ && cd server && npm install --production",
     "start:full": "concurrently \"npm run client:preview\" \"npm run server:prod\"",
     "build:server": "cd server && npm install --production",
-    "build:client": "npm run clean && npm install && npm run build && npx copyfiles -u 1 \"dist/**/*\" server/"
+    "build:client": "npx rimraf dist server/dist && npm install && npm run build && npx copyfiles -u 1 \"dist/**/*\" server/"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
