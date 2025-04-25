@@ -14,8 +14,11 @@
     "dev:full": "concurrently \"npm run dev\" \"npm run server\"",
     "start": "cd server && npm start",
     "client:preview": "npm run preview",
-    "build:full": "npm install && npm run build && npx copyfiles -u 1 \"dist/**/*\" server/ && cd server && npm install --production",
-    "start:full": "concurrently \"npm run client:preview\" \"npm run server:prod\""
+    "clean": "rimraf dist server/dist",
+    "build:full": "npm run clean && npm install && npm run build && npx copyfiles -u 1 \"dist/**/*\" server/ && cd server && npm install --production",
+    "start:full": "concurrently \"npm run client:preview\" \"npm run server:prod\"",
+    "build:server": "cd server && npm install --production",
+    "build:client": "npm run clean && npm install && npm run build && npx copyfiles -u 1 \"dist/**/*\" server/"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -87,6 +90,7 @@
     "globals": "^15.9.0",
     "lovable-tagger": "^1.1.7",
     "postcss": "^8.4.47",
+    "rimraf": "^6.0.1",
     "tailwindcss": "^3.4.11",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
